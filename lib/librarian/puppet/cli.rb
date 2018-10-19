@@ -47,6 +47,7 @@ module Librarian
       option "destructive", :type => :boolean, :default => false
       option "local", :type => :boolean, :default => false
       option "use-v1-api", :type => :boolean, :default => true
+      option "resolve-only", :type => :boolean, :default => false
       def install
 
         ensure!
@@ -67,7 +68,9 @@ module Librarian
 
         resolve!
         debug { "Install: dependencies resolved"}
-        install!
+        unless options["resolve-only"]
+          install!
+        end
       end
 
       # only used to replace / to - in the module names
